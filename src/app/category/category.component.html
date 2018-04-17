@@ -1,0 +1,43 @@
+<form class="form-horizontal">
+  <div class="form-group">
+    <label class="col-md-12">Tên danh mục</label>
+    <div class="col-md-12">
+      <input type="text" placeholder="Tên danh mục" class="form-control form-control-line" [(ngModel)]="categoryName" name="categoryName">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-12">
+      <button type="button" class="btn btn-primary" (click)="onCreate()">Tạo mới</button>
+      <button class="btn btn-success" (click)="onUpdate()" [disabled]="showNew">
+        Cập nhật</button>
+      <button class="btn btn-secondory" (click)="onCancel()">
+        Hủy bỏ</button>
+    </div>
+  </div>
+</form>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>STT</th>
+      <th>Tên danh mục</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of (categoryService.categories$|async)| paginate: { itemsPerPage: 5, currentPage: p };let i = index">
+      <td>{{i+1}}</td>
+      <td>{{c.name}}</td>
+      <td>
+        <button class="btn btn-success" (click)="onSelect(c)">
+          <i class="far fa-edit"></i>
+        </button>
+        <button class="btn btn-danger" (click)="onDelete(c)">
+          <i class="fas fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="pagination-wrapper">
+  <pagination-controls (pageChange)="p = $event" previousLabel="Trước" nextLabel="Sau"></pagination-controls>
+</div>

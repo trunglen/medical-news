@@ -1,0 +1,86 @@
+<div class="row">
+  <form class="form-horizontal col-md-12" #f="ngForm">
+    <div class="form-group">
+      <label class="col-md-12">Tên bài viết</label>
+      <div class="col-md-12">
+        <input type="text" placeholder="Tên bài viết" class="form-control form-control-line" name="title" ngModel>
+        <input type="hidden" placeholder="Tên bài viết" class="form-control form-control-line" name="id" ngModel>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-12">Tóm tắt bài viết</label>
+      <div class="col-md-12">
+        <textarea placeholder="Tóm tắt bài viết" class="form-control form-control-line" name="description" ngModel></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-12">Ảnh bài viết</label>
+      <div class="col-md-12">
+        <input type="file" #fileThumb placeholder="Tên bài viết" class="form-control form-control-line" name="thumb" (change)="previewFile()">
+        <img class="card-img-top" [src]="selectedThumb" class="load-image" style="max-width:100px;height:auto;">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-12">Nội dung bài viết</label>
+      <div class="col-md-12">
+        <!-- <editor apiKey="ui1gob40bgd1i0zpqvv76e91qflpk7zh8xn7k9d3h20o4aoi" [init]="tinymceConfig"></editor> -->
+        <!-- <quill-editor name="content" ngModel></quill-editor> -->
+        <editor apiKey="ui1gob40bgd1i0zpqvv76e91qflpk7zh8xn7k9d3h20o4aoi" [init]="editorConfig" name="content" ngModel></editor>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-12">Danh mục</label>
+      <div class="col-md-12">
+        <select name="category" class="form-control" required="required" ngModel>
+          <option [value]="c.id" *ngFor="let c of (categoryService.categories$|async);let i = index">{{c.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-12">
+        <button class="btn btn-primary" (click)="onCreate(f, fileThumb)" [disabled]="!showNew">
+          Thêm mới</button>
+        <button class="btn btn-success" (click)="onUpdate(f, fileThumb)" [disabled]="showNew">
+          Cập nhật</button>
+        <button class="btn btn-secondory" (click)="onCancel()">
+          Hủy bỏ</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th style="width: 20%">Bài viết</th>
+      <th style="width: 15%">Danh mục</th>
+      <th style="width: 35%">Nội dung</th>
+      <th *ngIf="!disabled()" style="width: 12%">Tác giả</th>
+      <th style="width: 8%">Trạng thái</th>
+      <th style="width: 10%"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of (postService.posts$|async)| paginate: { itemsPerPage: 5, currentPage: p };let i = index">
+      <td>{{p.title}}</td>
+      <td>{{p.category_name}}</td>
+      <td>{{p.description}}</td>
+      <td *ngIf="!disabled()">{{p.author_name}}</td>
+      <td>
+        <medical-switch [default]="p.approve" (changeValue)="approve(p)" *ngIf="!disabled()"></medical-switch>
+        <span *ngIf="disabled()">{{p.approve?'Đã duyệt':'Chờ duyệt'}}</span>
+      </td>
+      <td>
+        <button class="btn btn-success" (click)="onSelect(i, p)">
+          <i class="far fa-edit"></i>
+        </button>
+        <button class="btn btn-danger" (click)="onDelete(p)">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="pagination-wrapper">
+  <pagination-controls (pageChange)="p = $event" previousLabel="Trước" nextLabel="Sau"></pagination-controls>
+</div>

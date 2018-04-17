@@ -1,0 +1,54 @@
+
+    <form class="form-horizontal" action="/action_page.php" #f="ngForm">
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="email">Tên người viết:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="Tên người viết" name="name" ngModel>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Tên đăng nhập:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="Nhập tên đăng nhập" name="uname" ngModel>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Mật khẩu:</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" placeholder="Nhâp mật khẩu" name="password" ngModel>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="button" class="btn btn-default" (click)="onCreate(f)">Thêm mới</button>
+        </div>
+      </div>
+    </form>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Tên người viết</th>
+          <th>Tên đăng nhập</th>
+          <th>Ngày tạo</th>
+          <th>Số bài viết</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr *ngFor="let u of (userService.users$|async)| paginate: { itemsPerPage: 5, currentPage: p };let i = index">
+          <td>{{u.name}}</td>
+          <td>{{u.uname}}</td>
+          <td>{{u.ctime*1000| date:'yyyy-MM-dd HH:mm':'+0700'}}</td>
+          <td>{{u.post_count}}</td>
+          <td>
+            <button class="btn btn-danger" (click)="onDelete(u.id, i)">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination-wrapper">
+      <pagination-controls (pageChange)="p = $event" previousLabel="Trước" nextLabel="Sau"></pagination-controls>
+    </div>

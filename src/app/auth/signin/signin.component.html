@@ -1,0 +1,21 @@
+<div class="signin-wrapper">
+  <form class="form-signin" #f="ngForm">
+    <div class="text-center mb-4">
+      <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Medical News</h1>
+    </div>
+
+    <div class="form-label-group">
+      <input type="text" id="inputEmail" class="form-control" placeholder="Nhập tên đăng nhập" required autofocus name="uname"
+        ngModel>
+      <label for="inputEmail">Tên đăng nhập</label>
+    </div>
+
+    <div class="form-label-group">
+      <input type="password" id="inputPassword" class="form-control" placeholder="Nhập mật khẩu" required name="password" ngModel>
+      <label for="inputPassword">Password</label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="button" (click)="onSignin(f)">Đăng nhập</button>
+    <p class="mt-5 mb-3 text-muted text-center">&copy; 2018</p>
+  </form>
+</div>
