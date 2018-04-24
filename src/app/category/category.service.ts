@@ -29,7 +29,7 @@ export class CategoryService implements Resolve<Boolean>{
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Boolean> {
-    return this.httpService.Get(apiURL.getCategories).do(data => this.model.set(data)).mapTo(true);
+    return this.httpService.Get(apiURL.getCategories).do(data => this.model.set(data ? data : [])).mapTo(true);
   }
 
   createCategory(cat: Category) {
@@ -62,7 +62,7 @@ export class CategoryService implements Resolve<Boolean>{
 }
 export class Category {
   constructor(
-    public id:string = '',
+    public id: string = '',
     public name: string = ''
   ) { }
 }

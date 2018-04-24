@@ -63,6 +63,7 @@ export class PostComponent implements OnInit, OnDestroy {
   onCreate(f: NgForm, thumbFile: HTMLInputElement) {
     const value = f.value;
     value.author = SessionFactory.getItem('access_token').user_info.id;
+    value.content = `<h3>${value.title}</h3><p>${value.description}</p>${value.content}`
     this.postService.createPost(value, thumbFile, this)
   }
 
@@ -98,7 +99,7 @@ export class PostComponent implements OnInit, OnDestroy {
   approve(p: Post) {
     if (!p.approve) {
       this.toastNotificationService.confirm('Bạn có muốn gửi thông báo đến mọi người').subscribe(res => {
-        this.postService.notify(p).subscribe(res=>{
+        this.postService.notify(p).subscribe(res => {
           console.log(res)
         })
       })
