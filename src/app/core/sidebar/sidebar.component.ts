@@ -13,17 +13,19 @@ export class SidebarComponent implements OnInit {
 
   menus = menus;
   userName = SessionFactory.getItem('access_token').user_info.name
+  role = ''
   constructor(
     private router: Router
   ) { }
 
   ngOnInit() {
+    const token = SessionFactory.getItem('access_token')
+    this.role = token ? token.user_info.role : ''
   }
 
   logout() {
-    console.log('logout')
     sessionStorage.clear();
-    this.router.navigate(['auth/signin']);
+    this.router.navigate(['/auth/signin']);
   }
-  
+
 }

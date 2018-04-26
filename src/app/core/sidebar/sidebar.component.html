@@ -14,9 +14,12 @@
     </div>
     <div class="w3-bar-block">
       <a  class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-      <a [routerLink]="menu.routerLink" routerLinkActive="w3-blue" class="w3-bar-item w3-button w3-padding" *ngFor="let menu of menus"><i [ngClass]="menu.icon"></i> {{menu.label}}</a>
+      <a [routerLink]="['/dashboard']" routerLinkActive="w3-blue" class="w3-bar-item w3-button w3-padding" ><i class="fa fa-home fa-fw"></i> Trang chủ</a>
+      <a [routerLink]="['/category']" routerLinkActive="w3-blue" class="w3-bar-item w3-button w3-padding" *ngIf="role=='super-admin'"><i class="fa fa-book fa-fw"></i> Danh mục</a>
+      <a [routerLink]="['/post']" routerLinkActive="w3-blue" class="w3-bar-item w3-button w3-padding"><i class="fa fa-tags fa-fw"></i> Bài viết</a>
+      <a [routerLink]="['/user']" routerLinkActive="w3-blue" class="w3-bar-item w3-button w3-padding" *ngIf="role=='super-admin'"><i class="fa fa-users fa-fw"></i> Người viết</a>
       <!-- <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  Views</a>
-      <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Traffic</a>
+      <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Traffic</a>role==''
       <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i>  Geo</a>
       <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>  Orders</a>
       <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>  News</a>
