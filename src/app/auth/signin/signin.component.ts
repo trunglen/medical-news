@@ -26,7 +26,7 @@ export class SigninComponent implements OnInit {
   onSignin(f: NgForm) {
     this.authService.login(f.value).subscribe(res => {
       SessionFactory.setItem('access_token', res);
-      this.router.navigate(['/dashboard'], { relativeTo: this.activedRoute });
+      this.router.navigate(['/'], { relativeTo: this.activedRoute });
     });
   }
 }

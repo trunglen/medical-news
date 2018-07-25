@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  baseURL:'http://localhost:3006/api/',
-  staticURL:'http://localhost:3006/static/',
+  baseURL:'https://rocky-springs-86767.herokuapp.com/api/',
+  staticURL:'https://rocky-springs-86767.herokuapp.com/static/',
 };
 // 163.44.206.108:3006 
 // localhost:8081

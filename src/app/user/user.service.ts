@@ -36,6 +36,7 @@ export class UserService implements Resolve<boolean>{
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    
     return this.httpService.Get(apiURL.getUsers).do(data => this.model.set(data === null ? [] : data)).mapTo(true);
   }
 

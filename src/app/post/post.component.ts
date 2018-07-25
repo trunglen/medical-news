@@ -138,7 +138,9 @@ export class PostComponent implements OnInit, OnDestroy {
 const TinyMCEConfig = {
   selector: 'textarea',  // change this value according to your HTML
   plugins: 'image code fullscreen',
-  relative_urls: false,
+  relative_urls: true,
+  fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
+  // toolbar: "sizeselect | bold italic | fontselect |  fontsizeselect",
   images_upload_handler: function (blobInfo, success, failure) {
     var xhr, formData;
     xhr = new XMLHttpRequest();
