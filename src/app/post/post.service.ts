@@ -48,6 +48,7 @@ export class PostService implements Resolve<Boolean> {
       posts.unshift(res)
       this.model.set(posts)
       this.toastService.success('Tạo bài viết thành công')
+      this.httpService.Get(apiURL.getPosts, {}).do(res => this.model.set(res ? res : [])).subscribe()      
       component.refreshForm()
     })
   }
